@@ -12,7 +12,10 @@
 #                                  	  used in the tournament.
 # ======================================================================
 
-all:
+BIN_DIR = bin
+SRC_DIR = src
+
+all: compile
 	@-rm -rf Worlds
 	@-mkdir Worlds
 	@echo ""
@@ -24,7 +27,7 @@ all:
 	 echo ""; \
 	 bin/World_Generator Worlds/world $${count} $${rDim} $${cDim}
 
-tournamentSet:
+tournamentSet: compile
 	@-rm -rf Worlds
 	@-mkdir Worlds
 	@bin/World_Generator Worlds/world4x4 500 4 4
@@ -43,3 +46,8 @@ tournamentSet:
 	@bin/World_Generator Worlds/world7x5 500 7 5
 	@bin/World_Generator Worlds/world7x6 500 7 6
 	@bin/World_Generator Worlds/world7x7 500 7 7
+
+compile:
+	@-rm -rf $(BIN_DIR)
+	@-mkdir -p $(BIN_DIR)
+	@-g++ -std=c++0x src/*.cpp -o bin/World_Generator
