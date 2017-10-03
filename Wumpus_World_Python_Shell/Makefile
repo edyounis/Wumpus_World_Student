@@ -37,7 +37,9 @@ all: $(SOURCES)
 	 else \
 		python -m compileall -q src ; \
 	 fi
-	@rm -f $(BIN_DIR)/*
+	@rm -rf $(BIN_DIR)
+	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(DOC_DIR)
 	@cp -a src/__pycache__/. bin
 	@for file in bin/* ; \
 	do \
