@@ -214,6 +214,8 @@ class World():
                 numOfPits -= 1
                 c, r = [int(x) for x in next(file).split()]
                 self.__addPit ( c, r )
+                
+            file.close()
     
     def __addPit ( self, c, r ):
         if self.__isInBounds(c, r):
