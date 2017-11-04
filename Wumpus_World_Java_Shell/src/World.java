@@ -362,6 +362,8 @@ public class World
 			
 			addPit ( c, r );
 		}
+
+		scan.close();
 	}
 	
 	private void addPit ( int c, int r )

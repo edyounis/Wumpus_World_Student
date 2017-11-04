@@ -30,7 +30,7 @@ all: compile
 tournamentSet: compile
 	@-rm -rf Worlds
 	@-mkdir Worlds
-	@bin/World_Generator Worlds/world4x4 500 4 4
+	@bin/World_Generator Worlds/world4x4 2500 4 4
 	@bin/World_Generator Worlds/world4x5 500 4 5
 	@bin/World_Generator Worlds/world4x6 500 4 6
 	@bin/World_Generator Worlds/world4x7 500 4 7

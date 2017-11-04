@@ -66,11 +66,10 @@ clean:
 submission: all
 	@rm -f *.zip
 	@echo ""
-	@read -p "Enter Last Name: " lastName; \
+	@read -p "Enter Team Name (No spaces, '_', '/', '*'): " teamName; \
 	 echo ""; \
 	 read -p "Enter Student ID Number: " idNumber; \
 	 echo ""; \
 	 read -p "Enter Team Name: " teamName; \
 	 echo ""; \
 	 zip -rqq $${lastName}_$${idNumber}_$${teamName}.zip $(SOURCE_DIR) $(BIN_DIR) $(DOC_DIR)
-
