@@ -38,11 +38,14 @@ BIN_DIR = bin
 DOC_DIR = doc
 
 CC = g++
-FLAGS = -g -c -std=c++0x
+FLAGS = -c -std=c++0x
 
 OBJECTS = $(patsubst $(SOURCE_DIR)/%.cpp,$(BIN_DIR)/%.o,$(SOURCES))
 
 all: dir $(BIN_DIR)/$(EXECUTABLE) clean_o clean_gch
+
+debug: FLAGS += -DDEBUG -g
+debug: clean dir $(BIN_DIR)/$(EXECUTABLE)
 
 dir:
 	mkdir -p $(BIN_DIR)
@@ -68,8 +71,4 @@ submission: all
 	@echo ""
 	@read -p "Enter Team Name (No spaces, '_', '/', '*'): " teamName; \
 	 echo ""; \
-	 read -p "Enter Student ID Number: " idNumber; \
-	 echo ""; \
-	 read -p "Enter Team Name: " teamName; \
-	 echo ""; \
-	 zip -rqq $${lastName}_$${idNumber}_$${teamName}.zip $(SOURCE_DIR) $(BIN_DIR) $(DOC_DIR)
+	 zip -rqq s_$${teamName}.zip $(SOURCE_DIR) $(BIN_DIR) $(DOC_DIR)
