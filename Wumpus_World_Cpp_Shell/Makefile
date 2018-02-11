@@ -1,7 +1,7 @@
 # ======================================================================
 # FILE:        Makefile
 #
-# AUTHOR:      Abdullah Younis
+# AUTHOR:      Abdullah Younis, Matthew Wo
 #
 # DESCRIPTION: This file contains useful commands for this project. You
 #              may use the following commands:
@@ -11,6 +11,12 @@
 #
 #              - make submission - creates the the submission, you will
 #                                  submit.
+#
+#              - make clean_o    - deletes all the object files in bin
+#
+#              - make clean_gch  - deletes all of the precompiled headers
+#
+#              - make clean      - deletes everything inside bin
 #
 #              - Don't make changes to this file.
 # ======================================================================
@@ -26,15 +32,39 @@ RAW_SOURCES = \
 	World.hpp
 
 SOURCE_DIR = src
+SOURCES = $(wildcard $(SOURCE_DIR)/*.cpp)
+EXECUTABLE = Wumpus_World
 BIN_DIR = bin
 DOC_DIR = doc
-SOURCES = $(foreach s, $(RAW_SOURCES), $(SOURCE_DIR)/$(s))
 
-all: $(SOURCES)
-	@rm -rf $(BIN_DIR)
-	@mkdir -p $(BIN_DIR)
-	@mkdir -p $(DOC_DIR)
-	@g++ -std=c++0x $(SOURCES) -o $(BIN_DIR)/Wumpus_World
+CC = g++
+FLAGS = -c -std=c++0x
+
+OBJECTS = $(patsubst $(SOURCE_DIR)/%.cpp,$(BIN_DIR)/%.o,$(SOURCES))
+
+all: dir $(BIN_DIR)/$(EXECUTABLE) clean_o clean_gch
+
+debug: FLAGS += -DDEBUG -g
+debug: clean dir $(BIN_DIR)/$(EXECUTABLE)
+
+dir:
+	mkdir -p $(BIN_DIR)
+	mkdir -p $(DOC_DIR)
+
+$(BIN_DIR)/$(EXECUTABLE): $(OBJECTS)
+	$(CC) $^ -o $@
+
+$(OBJECTS): $(BIN_DIR)/%.o : $(SOURCE_DIR)/%.cpp
+	$(CC) $(FLAGS) $< -o $@
+
+clean_o:
+	rm -f $(BIN_DIR)/*.o
+
+clean_gch:
+	rm -f $(SOURCE_DIR)/*.gch
+
+clean:
+	rm -f $(BIN_DIR)/*
 
 submission: all
 	@rm -f *.zip
